@@ -4,4 +4,12 @@ Get started with the template by clicking `Use this template` button on the top 
 
 [Documentation](https://mantine.dev/guides/next/)
 
-Requires Node.JS and Yarn
+Requires Node.JS 18.18 or later, and Yarn
+
+run
+
+`yarn`
+
+`yarn dev`
+
+to start
