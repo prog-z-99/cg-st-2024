@@ -1,28 +1,26 @@
-import { Button, Container, FileInput, Group } from "@mantine/core";
-import { useEffect, useRef, useState } from "react";
-import SmokeCanvas from "../components/SmokeCanvas";
+import React, { useEffect, useRef, useState } from "react";
 import Script from "next/script";
-import SmokeEffect from "../public/smokeEffect.js";
+import { Button } from "@mantine/core";
+import image1 from "../public/image1.jpg";
 
-export default function IndexPage() {
-  const [value, setValue] = useState<File | null>(null);
+export default function SmokeCanvas(props) {
   const canvasRef = useRef(null);
+  const [source, setSource] = useState("");
+
+  const img = image1;
+
+  function update() {
+    setSource("");
+  }
 
   useEffect(() => {
     const image = new Image();
-    if (value) {
-      const reader = new FileReader();
-      reader.readAsDataURL(value);
-      reader.onload = function () {
-        image.src = reader.result;
-      };
-    }
-
+    image.src = "/image1.jpg";
     image.addEventListener("load", function () {
-      const canvas = canvasRef.current;
+      const canvas = document.getElementById("canvas1");
       const ctx = canvas.getContext("2d");
       canvas.width = 1000;
-      canvas.height = (image.height / image.width) * 1000;
+      canvas.height = 800;
 
       let particlesArray = [];
       const numberOfParticles = 20000;
@@ -41,18 +39,18 @@ export default function IndexPage() {
           const blue = pixels.data[y * 4 * pixels.width + (x * 4 + 2)];
           const color = "rgb(" + red + "," + green + "," + blue + ")";
           const brightness = calculateBrightness(red, green, blue) / 100;
-          const cell = [color, brightness];
+          const cell = [(cellColor = color), (cellBrightness = brightness)];
           row.push(cell);
         }
         grid.push(row);
       }
-      console.log(grid);
+
       class Particle {
         constructor() {
           this.x = Math.random(5) * canvas.width;
-          this.y = 0;
+          this.y = canvas.height;
           this.prevX = this.x;
-          this.speed = 4;
+          this.speed = 0;
           this.velocity = Math.random() * 0.8;
           this.size = Math.random() * 2 + 0.5;
           this.position1 = Math.floor(this.y / detail);
@@ -69,13 +67,10 @@ export default function IndexPage() {
           }
           this.angle += this.speed / 20;
           let movement = 2.5 - this.speed + this.velocity;
-          // this.y -= movement + Math.cos(this.angle) * 2;
-          // this.x += Math.cos(this.angle) * 2;
-          this.y += movement * 2;
-          // this.x += movement * 2;
-
-          if (this.y >= canvas.height) {
-            this.y = 0;
+          this.y -= movement + Math.cos(this.angle) * 2;
+          this.x += Math.cos(this.angle) * 2;
+          if (this.y <= 0) {
+            this.y = canvas.height;
             this.x = Math.random() * canvas.width;
           }
           //console.log(this.x += movement)
@@ -123,27 +118,14 @@ export default function IndexPage() {
         );
       }
     });
-
-    return () => {
-      image.removeEventListener("load", () => {});
-    };
-  }, [value]);
+  }, [source]);
 
   return (
-    <Container>
-      <Group mt={50} justify="center">
-        <Button size="xl">Welcome to Mantine!</Button>
-        <FileInput
-          accept="image/png,image/jpeg"
-          label="input Label"
-          value={value}
-          onChange={setValue}
-        />
-        {/* <Script src="smokeEffect.js" /> */}
-        <canvas id="canvas1" ref={canvasRef} />
-      </Group>
+    <>
+      <Button onClick={update}>update</Button>
+      <Script src="smokeEffect.js" />
 
-      <Group>{/* <SmokeCanvas /> */}</Group>
-    </Container>
+      <canvas id="canvas1" ref={canvasRef} />
+    </>
   );
 }
