@@ -2,7 +2,7 @@ import { Container, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import Main from "../components/Main";
 
-export default function IndexPage() {
+export default function Smoke() {
   const [value, setValue] = useState(null);
   const canvasRef = useRef(null);
 
@@ -46,9 +46,9 @@ export default function IndexPage() {
         class Particle {
           constructor() {
             this.x = Math.random(5) * canvas.width;
-            this.y = 0;
+            this.y = canvas.height;
             this.prevX = this.x;
-            this.speed = 4;
+            this.speed = 0;
             this.velocity = Math.random() * 0.8;
             this.size = Math.random() * 2 + 0.5;
             this.position1 = Math.floor(this.y / detail);
@@ -65,13 +65,10 @@ export default function IndexPage() {
             }
             this.angle += this.speed / 20;
             let movement = 2.5 - this.speed + this.velocity;
-            // this.y -= movement + Math.cos(this.angle) * 2;
-            // this.x += Math.cos(this.angle) * 2;
-            this.y += movement * 2;
-            // this.x += movement * 2;
-
-            if (this.y >= canvas.height) {
-              this.y = 0;
+            this.y -= movement + Math.cos(this.angle) * 2;
+            this.x += Math.cos(this.angle) * 2;
+            if (this.y <= 0) {
+              this.y = canvas.height;
               this.x = Math.random() * canvas.width;
             }
             //console.log(this.x += movement)
@@ -129,7 +126,7 @@ export default function IndexPage() {
   return (
     <Container>
       <Text size={"xl"} mt={50}>
-        Rain Effect
+        Smoke Effect
       </Text>
       <Main value={value} setValue={setValue} />
       <canvas id="canvas1" ref={canvasRef} />
