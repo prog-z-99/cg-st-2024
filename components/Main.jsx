@@ -11,7 +11,6 @@ import {
 } from "@mantine/core";
 
 const Main = ({ value, setValue, canvasRef }) => {
-  console.log(canvasRef);
   function startRecording() {
     const chunks = []; // here we will store our recorded media chunks (Blobs)
     const stream = canvasRef.current.captureStream(); // grab our canvas MediaStream
@@ -54,7 +53,7 @@ const Main = ({ value, setValue, canvasRef }) => {
 
       <Group mt={50}>
         <FileInput
-          accept="image/png,image/jpeg, image/webp"
+          accept="image/png,image/jpeg,image/webp"
           placeholder={"Upload image"}
           value={value}
           onChange={setValue}

@@ -42,7 +42,6 @@ export default function Smoke() {
           }
           grid.push(row);
         }
-        console.log(grid);
         class Particle {
           constructor() {
             this.x = Math.random(5) * canvas.width;

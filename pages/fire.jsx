@@ -53,7 +53,6 @@ export default function Smoke() {
           }
           mappedImage.push(row);
         }
-        console.log(mappedImage);
 
         function calculateRelativeBrightness(red, green, blue) {
           return (
