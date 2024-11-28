@@ -15,20 +15,20 @@ export default function Smoke() {
         image.src = reader.result;
       };
       image.addEventListener("load", function () {
-        const canvas = document.getElementById("canvas1");
+        const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
         canvas.width = 960;
         canvas.height = (image.height / image.width) * 960;
 
         const letters = ["M", "A", "N"];
-        // let switcher = 1;
-        // let counter = 0;
-        // setInterval(function () {
-        //   counter++;
-        //   if (counter % 12 === 0) {
-        //     switcher *= -1;
-        //   }
-        // }, 50);
+        let switcher = 1;
+        let counter = 0;
+        setInterval(function () {
+          counter++;
+          if (counter % 12 === 0) {
+            switcher *= -1;
+          }
+        }, 500);
 
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -88,15 +88,15 @@ export default function Smoke() {
             this.angle += this.speed / 20;
             this.size = this.speed * 2.5;
 
-            // if (switcher === 1) {
-            //   ctx.globalCompositeOperation = "luminosity";
-            // } else {
-            ctx.globalCompositeOperation = "soft-light";
-            // }
-            // if (counter % 22 === 0) {
-            //   this.x = Math.random() * canvas.width;
-            //   this.y = 0;
-            // }
+            if (switcher === 1) {
+              ctx.globalCompositeOperation = "luminosity";
+            } else {
+              ctx.globalCompositeOperation = "soft-light";
+            }
+            if (counter % 22 === 0) {
+              this.x = Math.random() * canvas.width;
+              this.y = 0;
+            }
 
             this.y -= movement;
             this.x += movement + 2;
@@ -136,7 +136,7 @@ export default function Smoke() {
           ctx.globalAlpha = 0.2;
           for (let i = 0; i < particlesArray.length; i++) {
             particlesArray[i].update();
-            //ctx.globalAlpha = particlesArray[i].speed * 0.3;
+            ctx.globalAlpha = particlesArray[i].speed * 0.3;
             ctx.globalAlpha = 1;
             particlesArray[i].draw();
           }
