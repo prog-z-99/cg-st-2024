@@ -54,7 +54,7 @@ const Main = ({ value, setValue, canvasRef }) => {
 
       <Group mt={50}>
         <FileInput
-          accept="image/png,image/jpeg"
+          accept="image/png,image/jpeg, image/webp"
           placeholder={"Upload image"}
           value={value}
           onChange={setValue}
