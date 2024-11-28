@@ -501,6 +501,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@techstark/opencv-js@npm:^4.10.0-release.1":
+  version: 4.10.0-release.1
+  resolution: "@techstark/opencv-js@npm:4.10.0-release.1"
+  checksum: 10c0/62d2c9cd7f0e2c418a5215076df1594a828a53384b9393ccafe503f97838de6eeb1dbb2af4d9206d4e93cef4d153251c4f0a432bac7797b4e8c0dd74a7121612
+  languageName: node
+  linkType: hard
+
 "@types/json5@npm:^0.0.29":
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
@@ -2406,6 +2413,7 @@ __metadata:
   dependencies:
     "@mantine/core": "npm:7.14.2"
     "@mantine/hooks": "npm:7.14.2"
+    "@techstark/opencv-js": "npm:^4.10.0-release.1"
     "@types/node": "npm:20.14.8"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"

@@ -11,13 +11,13 @@ export default function IndexPage() {
       const reader = new FileReader();
       reader.readAsDataURL(value);
       reader.onload = function () {
-        image.src = reader.result.toString();
+        image.src = reader.result;
       };
       image.addEventListener("load", function () {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
-        canvas.width = 1000;
-        canvas.height = (image.height / image.width) * 1000;
+        canvas.width = 960;
+        canvas.height = (image.height / image.width) * 960;
 
         let particlesArray = [];
         const numberOfParticles = 20000;
@@ -128,18 +128,14 @@ export default function IndexPage() {
   return (
     <Container>
       <Group mt={50} justify="center">
-        <Button size="xl">Welcome to Mantine!</Button>
         <FileInput
           accept="image/png,image/jpeg"
-          label="input Label"
+          placeholder={"Upload image"}
           value={value}
           onChange={setValue}
         />
-        {/* <Script src="smokeEffect.js" /> */}
-        <canvas id="canvas1" ref={canvasRef} />
       </Group>
-
-      <Group>{/* <SmokeCanvas /> */}</Group>
+      <canvas id="canvas1" ref={canvasRef} />
     </Container>
   );
 }
