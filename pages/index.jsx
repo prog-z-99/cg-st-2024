@@ -1,4 +1,4 @@
-import { Container, Text } from "@mantine/core";
+import { Button, Container, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import Main from "../components/Main";
 
@@ -131,7 +131,7 @@ export default function IndexPage() {
       <Text size={"xl"} mt={50}>
         Rain Effect
       </Text>
-      <Main value={value} setValue={setValue} />
+      <Main value={value} setValue={setValue} canvasRef={canvasRef} />
       <canvas id="canvas1" ref={canvasRef} />
     </Container>
   );

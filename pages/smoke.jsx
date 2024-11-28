@@ -128,7 +128,7 @@ export default function Smoke() {
       <Text size={"xl"} mt={50}>
         Smoke Effect
       </Text>
-      <Main value={value} setValue={setValue} />
+      <Main value={value} setValue={setValue} canvasRef={canvasRef} />
       <canvas id="canvas1" ref={canvasRef} />
     </Container>
   );

@@ -19,29 +19,16 @@ export default function Smoke() {
         const ctx = canvas.getContext("2d");
         canvas.width = 960;
         canvas.height = (image.height / image.width) * 960;
-        const gradient1 = ctx.createLinearGradient(
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-        gradient1.addColorStop(0.2, "pink");
-        gradient1.addColorStop(0.3, "red");
-        gradient1.addColorStop(0.4, "orange");
-        gradient1.addColorStop(0.5, "yellow");
-        gradient1.addColorStop(0.6, "green");
-        gradient1.addColorStop(0.7, "turquoise");
-        gradient1.addColorStop(0.8, "violet");
 
         const letters = ["M", "A", "N"];
-        let switcher = 1;
-        let counter = 0;
-        setInterval(function () {
-          counter++;
-          if (counter % 12 === 0) {
-            switcher *= -1;
-          }
-        }, 500);
+        // let switcher = 1;
+        // let counter = 0;
+        // setInterval(function () {
+        //   counter++;
+        //   if (counter % 12 === 0) {
+        //     switcher *= -1;
+        //   }
+        // }, 50);
 
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -101,19 +88,19 @@ export default function Smoke() {
             let movement = 2.5 - this.speed + this.velocity;
             this.angle += this.speed / 20;
             this.size = this.speed * 2.5;
-            /*
-            if (switcher === 1){
-                ctx.globalCompositeOperation = 'luminosity';
-            } else {
-                ctx.globalCompositeOperation = 'soft-light';
-            }
-            if (counter % 22 === 0){
-                this.x = Math.random() * canvas.width;
-                this.y = 0;
-            }*/
+
+            // if (switcher === 1) {
+            //   ctx.globalCompositeOperation = "luminosity";
+            // } else {
+            ctx.globalCompositeOperation = "soft-light";
+            // }
+            // if (counter % 22 === 0) {
+            //   this.x = Math.random() * canvas.width;
+            //   this.y = 0;
+            // }
 
             this.y -= movement;
-            this.x += movement + Math.sin(this.angle) * 2;
+            this.x += movement + 2;
             if (this.y <= 0) {
               this.y = canvas.height;
               this.x = Math.random() * canvas.width;
@@ -132,7 +119,6 @@ export default function Smoke() {
               ctx.fillStyle = mappedImage[this.position1][this.position2][1];
               ctx.strokeStyle = mappedImage[this.position1][this.position2][1];
             }
-            //ctx.fillStyle = gradient1;
             //ctx.strokeRect(this.x, this.y, this.size * 3, this.size * 3);
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -160,10 +146,6 @@ export default function Smoke() {
         animate();
       });
     }
-
-    return () => {
-      image.removeEventListener("load", () => {});
-    };
   }, [value]);
 
   return (
@@ -171,7 +153,7 @@ export default function Smoke() {
       <Text size={"xl"} mt={50}>
         Fire Effect
       </Text>
-      <Main value={value} setValue={setValue} />
+      <Main value={value} setValue={setValue} canvasRef={canvasRef} />
       <canvas id="canvas1" ref={canvasRef} />
     </Container>
   );
